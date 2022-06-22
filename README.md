@@ -1,6 +1,6 @@
 # Blog application using Redux Toolkit.
 
-![alt text](https://github.com/madhavms/)
+![alt text](https://github.com/madhavms/redux-tlkit/blob/master/images/Redux%20Toolkit.gif)
 
 ## Available Scripts
 
