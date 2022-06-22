@@ -1,5 +1,7 @@
 # Blog application using Redux Toolkit.
 
+A sample blog application to understand redux state management using Redux toolkit.
+
 ![alt text](https://github.com/madhavms/redux-tlkit/blob/master/images/Redux%20Toolkit.gif)
 
 ## Available Scripts
