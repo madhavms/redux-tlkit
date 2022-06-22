@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Blog application using Redux Toolkit.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![alt text](https://github.com/madhavms/)
 
 ## Available Scripts
 
