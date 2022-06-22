@@ -5,9 +5,88 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background:#121212;
+  color: white;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#postHeading{
+  margin:15px 30vw;
+  font-size: 35px;
+  text-align: left;
+}
+
+article {
+  border: 1px solid white;
+  border-radius: 20px;
+  margin:15px 30vw;
+  padding:30px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+article p {
+  font-size: 15px;
+  overflow:hidden;
+}
+
+#postContent{
+  margin:15px 5px;
+  position: relative;
+  top:30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  margin-bottom: 1em;
+}
+
+.submit-reset-btn button{
+  margin-left: 15px;
+  padding: 10px
+}
+
+.submit-reset-btn{
+  margin-left:120px;
+}
+
+#no-post{
+  margin:15px 30vw;
+  font-size: 25px;
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#select {
+  margin-left:70px;
+  margin-top:-28px;
+}
+
+#option {
+  padding: 10px 40px;
+  border-radius: 5px;
+}
+
+.reactionButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.reactionButton{
+  margin:0px;
 }
