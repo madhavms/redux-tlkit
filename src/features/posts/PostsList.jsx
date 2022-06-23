@@ -1,37 +1,40 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {selectAllPosts} from './postsSlice'
-import {deletePostById} from '../posts/postsSlice'
-import PostAuthor from './PostAuthor';
-import React from 'react'
-import TimeAgo from './TimeAgo';
-import ReactionButtons from './ReactionButtons'
-
+import {selectAllPosts, getPostsStatus, getPostsError, fetchPosts} from './postsSlice'
+import PostExcerpt from './PostExcerpt';
+import {useEffect} from 'react';
+import { nanoid } from 'nanoid';
+const POST_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 const PostsList = () => {
     const posts = useSelector(selectAllPosts);
+    const postStatus = useSelector(getPostsStatus);
+    const postsError = useSelector(getPostsError);
     const dispatch = useDispatch();
-    const orderedPosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date));
 
-    const renderedPosts = orderedPosts.map(post => (
-        <article key={post.id}>
-            <h3>{post.title}</h3>
-            <h5>{post.content.substring(0,100)}</h5>
-            <p className='postCredit'>
-                <PostAuthor userId={post.userId}/>
-                <TimeAgo timestamp={post.date}/>
-            </p>
-            <div className="reactionButtons">
-            <ReactionButtons post={post}/>
-            <button type="button" className='btn btn-danger' onClick={() => dispatch(deletePostById(post.id))}>Delete</button>
-            </div>
-        </article>
-    ))
-
+    useEffect(() => {
+        if(postStatus === 'idle'){
+            dispatch(fetchPosts());
+        }   
+    },[postStatus, dispatch]);
+    
+    let content;
+    if(postStatus === 'loading'){
+        content = <p>"loading..."</p>;
+    }
+    else if(postStatus === 'succeeded'){
+        const orderedPosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date));
+        content = orderedPosts.map(post =>
+            <PostExcerpt key={`${post.id}`+nanoid()} post={post}/>);
+    }
+    else if(postStatus == 'failed'){
+        content = <p>"failed"</p>;
+    }
+    
     return (
         <section>
             <h2 id='postHeading'>Posts</h2>
-            {!posts.length && (<h3 id='no-post'>No posts yet.</h3>)}
-            {renderedPosts}
+            {!posts.length && postStatus === 'succeeded' && (<h3 id='no-post'>No posts yet.</h3>)}
+            {content}
         </section>
     )
 }
