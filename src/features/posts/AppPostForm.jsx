@@ -17,10 +17,6 @@ const AppPostForm = () => {
     const posts = useSelector(state => state.posts);
     const submitAudio = new Audio(sound);
 
-    useEffect(() => {
-        localStorage.setItem('posts', JSON.stringify(posts))
-    },[posts]);
-
     const onTitleChanged = e => setTitle(e.target.value);
     const onContentChanged = e => setContent(e.target.value);
     const onAuthorChanged = e => setUserId(e.target.value);
