@@ -7,10 +7,6 @@ const Counter = () => {
     const count = useSelector((state) => state.counter.count);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        localStorage.setItem('count', String(count));
-      }, [count]);
-
     const [incrementAmount, setIncrementAmount] = useState(0);
     const addvalue = Number(incrementAmount) || 0;
 
