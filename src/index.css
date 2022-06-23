@@ -79,6 +79,7 @@ select {
 #option {
   padding: 10px 40px;
   border-radius: 5px;
+  margin-left: 60px;
 }
 
 .reactionButtons{
