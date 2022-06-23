@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addPosts} from '../posts/postsSlice';
+import {addPosts, addNewPosts} from '../posts/postsSlice';
 import {selectAllUsers} from '../users/usersSlice';
 import sound from '../../audio_effects/mail-sent.mp3';
 
@@ -10,6 +10,7 @@ const AppPostForm = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
+    const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
     const users = useSelector(selectAllUsers);
 
@@ -20,6 +21,7 @@ const AppPostForm = () => {
     const onTitleChanged = e => setTitle(e.target.value);
     const onContentChanged = e => setContent(e.target.value);
     const onAuthorChanged = e => setUserId(e.target.value);
+    const canSave = [title,content,userId].every(Boolean) && addRequestStatus === 'idle';
 
     const resetAll = (e) => {
             e.preventDefault();
@@ -30,13 +32,23 @@ const AppPostForm = () => {
     }
 
     const onSavePostClicked = (e) => {
-        if(title && content) {
-            submitAudio.play();
-            e.preventDefault();
-            setTitle('');
-            setContent('');
-            setUserId('');
-            dispatch(addPosts(title, content, userId));
+        if(canSave) {
+            try{
+                submitAudio.play();
+                e.preventDefault();
+                setAddRequestStatus('pending');
+                dispatch(addNewPosts({title, body: content, userId})).unwrap();
+                setTitle('');
+                setContent('');
+                setUserId(''); 
+            }
+            catch(err){
+                console.error('Failed to save the post', err);
+            }
+            finally{
+                setAddRequestStatus('idle');
+            }
+            
         }
     }
 
@@ -46,7 +58,7 @@ const AppPostForm = () => {
         </option>
     ));
 
-    const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
+    
 
     return (
         <div className="container">
