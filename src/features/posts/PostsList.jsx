@@ -19,7 +19,9 @@ const PostsList = () => {
     
     let content;
     if(postStatus === 'loading'){
-        content = <p>"loading..."</p>;
+        content = <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>  
     }
     else if(postStatus === 'succeeded'){
         const orderedPosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date));
@@ -27,7 +29,9 @@ const PostsList = () => {
             <PostExcerpt key={`${post.id}`+nanoid()} post={post}/>);
     }
     else if(postStatus == 'failed'){
-        content = <p>"failed"</p>;
+        content = <div id ='failed' className="alert alert-danger" role="alert">
+        Unable to load posts at the moment. Please contact support.
+      </div>
     }
     
     return (
