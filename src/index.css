@@ -41,6 +41,11 @@ article p {
   top:30px;
 }
 
+#failed{
+  margin:15px 30vw;
+  font-weight: bold;
+}
+
 form {
   display: flex;
   flex-direction: column;
